@@ -206,7 +206,7 @@ ConsultasDAO.java: consultas compuestas y estadísticas.
                v
        +----------------+
        | ConexionBD.java|
-       | Singleton/JDBC |
+       | /JDBC          |
        +----------------+
                |
                v
