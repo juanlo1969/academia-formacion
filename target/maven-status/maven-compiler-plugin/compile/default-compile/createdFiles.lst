@@ -1,0 +1,9 @@
+com\academia\conexion\ConexionBD.class
+com\academia\modelo\Asignatura.class
+com\academia\dao\AlumnoDAO.class
+com\academia\dao\ConsultasDAO.class
+com\academia\dao\ProfesorDAO.class
+com\academia\Main.class
+com\academia\modelo\Alumno.class
+com\academia\modelo\Profesor.class
+com\academia\dao\AsignaturaDAO.class

@@ -1,0 +1,6 @@
+package com.academia.dao;
+import com.academia.conexion.ConexionBD;import java.sql.*;
+public class ConsultasDAO {
+ public void resumen()throws SQLException{String q="SELECT al.nombre alumno,al.apellidos,asi.nombre asignatura,pr.nombre profesor,pr.apellidos apellidos_profesor FROM alumnos al JOIN asignaturas asi ON al.asignatura_id=asi.id JOIN profesores pr ON asi.profesor_id=pr.id ORDER BY al.id";try(Connection c=ConexionBD.getInstancia().getConexion();PreparedStatement p=c.prepareStatement(q);ResultSet r=p.executeQuery()){while(r.next())System.out.println(r.getString("alumno")+" "+r.getString("apellidos")+" | "+r.getString("asignatura")+" | profesor: "+r.getString("profesor")+" "+r.getString("apellidos_profesor"));}}
+ public void agregacion()throws SQLException{String q="SELECT asi.nombre,COUNT(al.id) total,AVG(al.edad) media FROM asignaturas asi LEFT JOIN alumnos al ON al.asignatura_id=asi.id GROUP BY asi.id,asi.nombre ORDER BY asi.nombre";try(Connection c=ConexionBD.getInstancia().getConexion();PreparedStatement p=c.prepareStatement(q);ResultSet r=p.executeQuery()){while(r.next())System.out.printf("%s | alumnos: %d | edad media: %.1f%n",r.getString(1),r.getInt(2),r.getDouble(3));}}
+}

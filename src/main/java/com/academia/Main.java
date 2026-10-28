@@ -1,0 +1,9 @@
+package com.academia;
+import com.academia.conexion.ConexionBD;import com.academia.dao.*;import java.sql.*;import java.util.Scanner;
+public class Main {
+ public static void main(String[] args){try{ConexionBD.getInstancia().inicializar();menu();}catch(SQLException e){System.err.println("Error de base de datos: "+e.getMessage());}}
+ private static void menu()throws SQLException{Scanner s=new Scanner(System.in);AlumnoDAO a=new AlumnoDAO();ProfesorDAO p=new ProfesorDAO();AsignaturaDAO asi=new AsignaturaDAO();ConsultasDAO q=new ConsultasDAO();int op;
+ do{System.out.println("\n=== ACADEMIA ===\n1 Alumnos (consulta simple)\n2 Profesores\n3 Asignaturas\n4 Resumen JOIN\n5 Agregación COUNT/AVG\n6 Alta alumno\n7 Eliminar alumno\n0 Salir\nOpción: ");op=entero(s);
+ try{switch(op){case 1->a.listar().forEach(System.out::println);case 2->p.listar();case 3->asi.listar();case 4->q.resumen();case 5->q.agregacion();case 6->{System.out.print("Nombre: ");String n=s.nextLine().trim();System.out.print("Apellidos: ");String ap=s.nextLine().trim();System.out.print("Email: ");String e=s.nextLine().trim();System.out.print("Edad (>=16): ");int edad=entero(s);System.out.print("ID asignatura (1-3 iniciales): ");int id=entero(s);if(n.isBlank()||ap.isBlank()||!e.contains("@")||edad<16)System.out.println("Datos no válidos.");else{a.insertar(n,ap,e,edad,id);System.out.println("Alumno insertado.");}}case 7->{System.out.print("ID alumno: ");int id=entero(s);System.out.println(a.eliminar(id)?"Alumno eliminado.":"No existe ese ID.");}case 0->System.out.println("Hasta pronto.");default->System.out.println(op==0?"":"Opción no válida.");}}catch(SQLException ex){System.out.println("Operación fallida: "+ex.getMessage());}}while(op!=0);}
+ private static int entero(Scanner s){while(true){try{return Integer.parseInt(s.nextLine().trim());}catch(NumberFormatException e){System.out.print("Introduce un número entero: ");}}}
+}
